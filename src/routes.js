@@ -6,6 +6,7 @@ import Employees from './RouteHandlers/Employees'
 import EmployeePage from './RouteHandlers/EmployeePage'
 import NewEmployeePage from './RouteHandlers/NewEmployeePage'
 import EmployeeIndex from './RouteHandlers/EmployeeIndex'
+import NotFound from './RouteHandlers/NotFound'
 
 export const routes = (
 
@@ -16,5 +17,6 @@ export const routes = (
 			<Route path = "new" component = {NewEmployeePage} />
 			<Route path = ":id" component = {EmployeePage} />
 		</Route>
+		<Route path = "*" component = {NotFound} />
 	</Route>
 )

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
 
 class EmployeePage extends Component {
 
@@ -7,7 +6,7 @@ class EmployeePage extends Component {
 	render() {
 		return (
 			<div>
-				<p>страница сотрудника</p>
+				<p>Employee page</p>
 			</div>
 		)
 	}
