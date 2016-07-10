@@ -1,4 +1,4 @@
-import { LOAD_ALL_EMPLOYEES, START, SUCCESS, FAIL } from '../constants'
+import { LOAD_ALL_EMPLOYEES, DELETE_EMPLOYEE, START, SUCCESS, FAIL } from '../constants'
 
 const defaultState = {
 	loading: false,
@@ -12,6 +12,11 @@ export default (employees = defaultState, action) => {
 	switch (type) {
 		case LOAD_ALL_EMPLOYEES + START: return {...employees, loading: true}
 		case LOAD_ALL_EMPLOYEES + SUCCESS: return { entities: response, loaded: true }
+
+		case DELETE_EMPLOYEE + SUCCESS: return {
+			...employees,
+			entities: employees.entities.filter((employee) => employee.id != data.id)
+		}
 	}
 
 	return employees

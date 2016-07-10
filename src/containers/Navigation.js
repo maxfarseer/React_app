@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { loadAllEmployees } from '../AC/employees'
+import { loadAllEmployees, deleteEmployee } from '../AC/employees'
 import EmployeesList from '../components/EmployeesList'
 
 class NavigationContainer extends Component {
@@ -22,5 +22,5 @@ export default connect(state => {
 
 	return { employees: employees.entities, loading: employees.loading }
 }, {
-	loadAllEmployees
+	loadAllEmployees, deleteEmployee
 })(NavigationContainer)

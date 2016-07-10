@@ -6,7 +6,9 @@
   "scripts": {
     "start": "concurrently \"npm run dev\" \"npm run api\"",
     "api": "nodemon simple_api/server.js",
-    "dev": "webpack-dev-server --hot --inline"
+    "dev": "webpack-dev-server --hot --inline",
+    "test": "mocha --compilers js:babel-register --recursive",
+    "test:watch": "npm test -- --watch"
   },
   "homepage": "https://github.com/gaearon/react-transform-boilerplate#readme",
   "devDependencies": {
@@ -16,11 +18,15 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.0",
     "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.9.0",
+    "chai": "^3.5.0",
     "concurrently": "^2.0.0",
     "css-loader": "^0.23.1",
     "events": "^1.1.0",
     "flux": "^2.1.1",
     "jquery": "^2.2.3",
+    "mocha": "^2.5.3",
+    "nock": "^8.0.0",
     "nodemon": "^1.9.2",
     "react-redux": "^4.4.5",
     "react-router": "^2.1.1",
@@ -29,6 +35,7 @@
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.9",
     "redux-logger": "^2.6.1",
+    "redux-mock-store": "^1.1.2",
     "redux-multi": "^0.1.12",
     "redux-thunk": "^2.0.1",
     "style-loader": "^0.13.0",

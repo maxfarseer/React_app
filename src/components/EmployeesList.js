@@ -12,13 +12,22 @@ class EmployeesList extends Component {
 		return nextProps.employees != this.props.employees
 	}
 
+	deleteEmploee = id => (ev) => {
+		ev.preventDefault()
+		this.props.deleteEmployee(id)
+	}
+
 	render() {
 		const { employees, loading } = this.props
 		if (loading) return <h1>Loading...</h1>
-		const items = employees.map((employee) => <li key = {employee.id}>
-			<Link to={`/employees/${employee.id}`}>{employee.name}</Link>
-
-		</li>)
+		const items = employees.map(
+			(employee) =>
+				<li key = {employee.id}>
+					<p>{employee.name} </p>
+					<Link to={`/employees/${employee.id}`}>open</Link>{' '}
+					<a href = "#" onClick = {this.deleteEmploee(employee.id)}>delete</a>
+				</li>
+		)
 		return (
 			<ul>
 				{items}

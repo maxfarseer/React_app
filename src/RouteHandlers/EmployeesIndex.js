@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
-class EmployeeIndex extends Component {
+class EmployeesIndex extends Component {
 	static propTypes = {
 
 	};
@@ -14,4 +14,4 @@ class EmployeeIndex extends Component {
 	}
 }
 
-export default EmployeeIndex
+export default EmployeesIndex
