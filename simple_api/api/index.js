@@ -1,8 +1,9 @@
-var router = require('express').Router();
-var mocks = require('./mock');
-var assign = require('object-assign');
-var uuid = require('node-uuid');
+'use strict'
 
+const router = require('express').Router();
+const mocks = require('./mock');
+const assign = require('object-assign');
+const uuid = require('node-uuid');
 
 router.get('/employees', function (req, res, next) {
     var employees = mocks.employees;
@@ -18,9 +19,9 @@ router.post('/employees', function (req, res, next) {
             name: body.name,
             email: body.email
         };
-        mocks.employees.push(employee);
-        console.log(req)
-        res.json(mocks)
+        var employees = mocks.employees;
+        employees.push(employee);
+        res.json(employees)
     } else {
         res.status(404).json({error: "not found"});
     }
@@ -29,7 +30,7 @@ router.post('/employees', function (req, res, next) {
 router.delete('/employees/:id', function (req, res, next) {
     var employees = mocks.employees;
     var employee;
-    for (i = 0; i < employees.length; i++) {
+    for (let i = 0; i < employees.length; i++) {
         if(employees[i].id == req.params.id) {
             employee = employees.splice( i, 1 )[0];
             break;
@@ -38,7 +39,32 @@ router.delete('/employees/:id', function (req, res, next) {
 
     if (employee) return res.json(employee);
 
-    res.status(404).json({error: "not found"});
+    res.status(400).json({error: "not found"});
+});
+
+router.put('/employees/:id', function (req, res, next) {
+    const id = req.params.id
+    let employees = mocks.employees;
+    const body = req.body;
+    if(body){
+        const EditedEmployee = {
+            id,
+            name: body.name,
+            email: body.email
+        };
+
+        for (let i = 0; i < employees.length; i++) {
+            if(employees[i].id == id) {
+                employees[i] = EditedEmployee
+                res.json(employees)
+                break;
+            }
+        }
+        res.status(404).json({error: "id not found"});
+    } else {
+        res.status(400).json({error: "obj not found"});
+    }
+
 });
 
 module.exports = router;

@@ -1,14 +1,14 @@
 import { createStore, compose } from 'redux'
 import reducer from '../reducer'
 import api from '../middlewares/api'
-//import createLogger from 'redux-logger'
+import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 import multi from 'redux-multi'
 import { applyMiddleware } from 'redux'
 import DevTools from '../containers/DevTools'
 
 const enhancer = compose(
-    applyMiddleware(multi, thunk, api),
+    applyMiddleware(multi, thunk, api, createLogger()),
     DevTools.instrument()
 )
 

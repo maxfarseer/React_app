@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { loadAllEmployees, deleteEmployee } from '../AC/employees'
-import EmployeesList from '../components/EmployeesList'
+import { addNewEmployee } from '../AC/employees'
+import EmployeeForm from '../components/EmployeeForm'
 
 class NewEmployee extends Component {
 	state = {
@@ -10,27 +10,11 @@ class NewEmployee extends Component {
 	}
 
 	render() {
-		return <form onSubmit={this.addComment}>
-			<label>new employee: </label>
-			<input type="text" value={this.state.name} onChange={this.handleChange}/>
-			<input type="text" value={this.state.email} onChange={this.handleChange}/>
-		</form>
+		return(
+			<EmployeeForm saveForm = {this.props.addNewEmployee} />
+		)
 	}
-
-	//Todo: last stop
-	//handleChange = (ev) => {
-	//	this.setState({
-	//		//text: ev.target.value
-	//
-	//	)}
-	//}
 
 }
 
-export default connect(state => {
-	const { employees } = state
-
-	return { employees: employees.entities, loading: employees.loading }
-}, {}
-
-)(NewEmployee)
+export default connect(null, { addNewEmployee })(NewEmployee)

@@ -4,12 +4,6 @@ import NewEmployee from '../containers/NewEmployee'
 
 class NewEmployeePage extends Component {
 
-	getFormInput() {
-		return <form onSubmit={this.addComment}>
-			<label>Form: </label>
-			<input type="text" value={this.state.commentText} onChange = {this.handleChange}/>
-		</form>
-	}
 
 	render() {
 		return (

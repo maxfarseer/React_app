@@ -1,33 +1,24 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { editEmployee as editAction } from '../AC/employees'
+import EmployeeForm from '../components/EmployeeForm'
 
-class Employee extends Component {
-	state = {
-		email: null
-	}
-	static propTypes = {
-		id: PropTypes.string.isRequired
-	}
-
-	static contextTypes = {
-		router: PropTypes.object,
-		style: PropTypes.object
-	}
+class EditEmployee extends Component {
 
 	render() {
 		if (!this.props.loaded) return null
 		const employee = this.props.employees.filter( person => person.id == this.props.id )[0]
 		if(!employee) this.context.router.push('/employees')
+
 		return(
-			<div>
-				<p>{employee.email}</p>
-			</div>
+			<EmployeeForm saveForm = {this.props.editAction} employee = {employee} />
 		)
 	}
+
 }
 
 export default connect(state => {
 	const { employees } = state
 
-	return { employees: employees.entities, loaded: employees.loaded }
-} )(Employee)
+	return {employees: employees.entities, loaded: employees.loaded}
+}, { editAction })(EditEmployee)

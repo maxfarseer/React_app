@@ -8,29 +8,27 @@ class EmployeesList extends Component {
 		loading: PropTypes.bool
 	};
 
-	shouldComponentUpdate(nextProps, nextState, nextContext) {
-		return nextProps.employees != this.props.employees
-	}
-
-	deleteEmploee = id => (ev) => {
+	deleteEmployee = id => (ev) => {
 		ev.preventDefault()
+		console.log(id)
 		this.props.deleteEmployee(id)
 	}
 
 	render() {
 		const { employees, loading } = this.props
 		if (loading) return <h1>Loading...</h1>
-		const items = employees.map(
+		const list = employees.map(
 			(employee) =>
 				<li key = {employee.id}>
 					<p>{employee.name} </p>
-					<Link to={`/employees/${employee.id}`}>open</Link>{' '}
-					<a href = "#" onClick = {this.deleteEmploee(employee.id)}>delete</a>
+					<Link to={`/employees/${employee.id}`}>show</Link>{' '}
+					<Link to={`/employees/${employee.id}/edit`}>edit</Link>{' '}
+					<a href = "#" onClick = {this.deleteEmployee(employee.id)}>delete</a>
 				</li>
 		)
 		return (
 			<ul>
-				{items}
+				{list}
 			</ul>
 		)
 	}

@@ -6,11 +6,17 @@ import thunk from 'redux-thunk'
 const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
 
-import { loadAllEmployees, deleteEmployee } from '../../src/AC/employees'
-import { LOAD_ALL_EMPLOYEES, START, SUCCESS, FAIL, DELETE_EMPLOYEE } from '../../src/constants'
+import { loadAllEmployees, deleteEmployee, addNewEmployee, editEmployee } from '../../src/AC/employees'
+import { LOAD_ALL_EMPLOYEES, DELETE_EMPLOYEE, ADD_NEW_EMPLOYEE, EDIT_EMPLOYEE  } from '../../src/constants'
+
 
 
 describe('sync actions', () => {
+	const id = 2
+	const data = {
+		name: 'fakeName',
+		email: 'fakeEmail'
+	}
 
 	it('should create an action to load all employees', () => {
 		const expectedAction = {
@@ -19,6 +25,41 @@ describe('sync actions', () => {
 			method: 'GET'
 		}
 		expect(loadAllEmployees()).to.deep.equal(expectedAction)
+	})
+
+	it('should create an action to delete an employee ', () => {
+		const expectedAction = {
+			type: DELETE_EMPLOYEE,
+			callApi: '/api/employees/' + id,
+			method: 'DELETE',
+			data: {id}
+		}
+		expect(deleteEmployee(id)).to.deep.equal(expectedAction)
+	})
+
+	it('should create an action to add new employee ', () => {
+		const data = {
+			name: 'fakeName',
+			email: 'fakeEmail'
+		}
+
+		const expectedAction = {
+			type: ADD_NEW_EMPLOYEE,
+			callApi: '/api/employees',
+			method: 'POST',
+			data
+		}
+		expect(addNewEmployee(data)).to.deep.equal(expectedAction)
+	})
+
+	it('should create an action to add new employee ', () => {
+		const expectedAction = {
+			type: EDIT_EMPLOYEE,
+			callApi: '/api/employees',
+			method: 'PUT',
+			data
+		}
+		expect(editEmployee(data)).to.deep.equal(expectedAction)
 	})
 
 })

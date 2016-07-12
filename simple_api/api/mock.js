@@ -1,5 +1,3 @@
-var uuid = require('node-uuid');
-
 var employees = [
     {
         id: 1,

@@ -4,19 +4,19 @@ import { LOAD_ALL_EMPLOYEES, START, SUCCESS, FAIL, DELETE_EMPLOYEE } from '../..
 
 describe('employee reducer', () => {
 
-	it('set loading to false then employees is loaded', () => {
+	const initialState = {
+		loading: false,
+		loaded: false,
+		entities: []
+	}
 
-		const initalState = {
-			loading: false,
-			loaded: false,
-			entities: []
-		}
+	it('set loading to true then employees loading is started', () => {
 
 		const action = {
 			type: LOAD_ALL_EMPLOYEES + START
 		}
 
-		const nextState = reducer(initalState, action)
+		const nextState = reducer(initialState, action)
 
 		expect(nextState).to.deep.equal({
 			loading: true,
@@ -24,5 +24,28 @@ describe('employee reducer', () => {
 			entities: []
 		})
 	})
+
+	it('set loading to true then employees loading is finish', () => {
+
+		const initialState = {
+			loading: true,
+			loaded: false,
+			entities: []
+		}
+
+		const action = {
+			type: LOAD_ALL_EMPLOYEES + SUCCESS,
+			response: [{id:2, name: 'fakeName', email: 'fakeEmail'}]
+		}
+
+		const nextState = reducer(initialState, action)
+
+		expect(nextState).to.deep.equal({
+			loading: false,
+			loaded: true,
+			entities: [{id:2, name: 'fakeName', email: 'fakeEmail'}]
+		})
+	})
+
 
 })

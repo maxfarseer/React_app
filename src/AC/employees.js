@@ -1,27 +1,5 @@
-import { LOAD_ALL_EMPLOYEES, START, SUCCESS, FAIL, DELETE_EMPLOYEE } from '../constants'
+import { LOAD_ALL_EMPLOYEES, START, SUCCESS, FAIL, DELETE_EMPLOYEE, ADD_NEW_EMPLOYEE, EDIT_EMPLOYEE } from '../constants'
 import * as api from './api'
-
-
-//export function oldloadAllEmployees() {
-//	return (dispatch, store) => {
-//		dispatch({
-//			type: DELETE_EMPLOYEE + START
-//		})
-//
-//		api.loadAllEmployees()
-//			.then((response) => {
-//				dispatch({
-//					type: LOAD_ALL_EMPLOYEES + SUCCESS,
-//					response: response.body
-//				})
-//			}, (error) => {
-//				dispatch({
-//					type: LOAD_ALL_EMPLOYEES + FAIL,
-//					error
-//				})
-//			})
-//	}
-//}
 
 export function loadAllEmployees() {
 	return {
@@ -32,12 +10,28 @@ export function loadAllEmployees() {
 }
 
 export function deleteEmployee(id) {
-	return (dispatch, store) => {
-		dispatch({
-			type: DELETE_EMPLOYEE,
-			callApi: '/api/employees/' + id,
-			method: 'DELETE',
-			data: { id }
-		})
+	return  {
+		type: DELETE_EMPLOYEE,
+		callApi: '/api/employees/' + id,
+		method: 'DELETE',
+		data: { id }
+	}
+}
+
+export function addNewEmployee(data) {
+	return {
+		type: ADD_NEW_EMPLOYEE,
+		callApi: '/api/employees',
+		method: 'POST',
+		data
+	}
+}
+
+export function editEmployee(data) {
+	return {
+		type: EDIT_EMPLOYEE,
+		callApi: '/api/employees/'+ data.id,
+		method: 'PUT',
+		data
 	}
 }
