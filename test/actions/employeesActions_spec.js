@@ -1,10 +1,10 @@
 import {expect} from 'chai'
 import nock from 'nock'
 import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
+//import thunk from 'redux-thunk'
 
-const middlewares = [ thunk ]
-const mockStore = configureMockStore(middlewares)
+//const middlewares = [ thunk ]
+//const mockStore = configureMockStore(middlewares)
 
 import { loadAllEmployees, deleteEmployee, addNewEmployee, editEmployee } from '../../src/AC/employees'
 import { LOAD_ALL_EMPLOYEES, DELETE_EMPLOYEE, ADD_NEW_EMPLOYEE, EDIT_EMPLOYEE  } from '../../src/constants'
@@ -52,14 +52,15 @@ describe('sync actions', () => {
 		expect(addNewEmployee(data)).to.deep.equal(expectedAction)
 	})
 
-	it('should create an action to add new employee ', () => {
+	it('should create an action to edit existed employee ', () => {
+		const editData = {...data, id}
 		const expectedAction = {
 			type: EDIT_EMPLOYEE,
-			callApi: '/api/employees',
+			callApi: '/api/employees/' + id,
 			method: 'PUT',
-			data
+			data: editData
 		}
-		expect(editEmployee(data)).to.deep.equal(expectedAction)
+		expect(editEmployee(editData)).to.deep.equal(expectedAction)
 	})
 
 })
