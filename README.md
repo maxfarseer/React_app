@@ -4,7 +4,7 @@ React+Redux+Express.js(very simple api)+Mocha +Chai
 <h3>Instalation:</h3>
 
 $ npm i <br />
-$ cd simple_api && npm i && cd .. <br />
+$ cd simple_api && npm i  <br />
 
 <h3>How to use</h3>
 
