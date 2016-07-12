@@ -2,7 +2,8 @@
 React+Redux+Express.js(very simple api)+Mocha +Chai
 
 How to use:
-$ npm i
+
+$ npm i <br />
 $ cd simple_api && npm i && cd .. 
 
 tests:
