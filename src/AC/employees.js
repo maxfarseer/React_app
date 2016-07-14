@@ -1,5 +1,6 @@
 import { LOAD_ALL_EMPLOYEES, START, SUCCESS, FAIL, DELETE_EMPLOYEE, ADD_NEW_EMPLOYEE, EDIT_EMPLOYEE } from '../constants'
 import * as api from './api'
+import { push } from 'react-router-redux'
 
 export function loadAllEmployees() {
 	return {
@@ -33,5 +34,12 @@ export function editEmployee(data) {
 		callApi: '/api/employees/'+ data.id,
 		method: 'PUT',
 		data
+	}
+}
+
+export function editAndRedirectEmployee(data) {
+	return dispatch => {
+		dispatch(editEmployee(data));
+		dispatch(push("/employees/" + data.id));
 	}
 }

@@ -1,13 +1,17 @@
 import {expect} from 'chai'
 import nock from 'nock'
 import configureMockStore from 'redux-mock-store'
-//import thunk from 'redux-thunk'
+import thunk from 'redux-thunk'
+import { routerMiddleware } from 'react-router-redux'
+import historyType from '../../src/history'
+import multi from 'redux-multi'
 
-//const middlewares = [ thunk ]
-//const mockStore = configureMockStore(middlewares)
 
-import { loadAllEmployees, deleteEmployee, addNewEmployee, editEmployee } from '../../src/AC/employees'
-import { LOAD_ALL_EMPLOYEES, DELETE_EMPLOYEE, ADD_NEW_EMPLOYEE, EDIT_EMPLOYEE  } from '../../src/constants'
+const middlewares = [ multi, thunk, routerMiddleware(historyType)]
+const mockStore = configureMockStore(middlewares)
+
+import { loadAllEmployees, deleteEmployee, addNewEmployee, editEmployee, editAndRedirectEmployee } from '../../src/AC/employees'
+import { LOAD_ALL_EMPLOYEES, DELETE_EMPLOYEE, ADD_NEW_EMPLOYEE, EDIT_EMPLOYEE, START  } from '../../src/constants'
 
 
 
@@ -70,33 +74,26 @@ describe('sync actions', () => {
 //		nock.cleanAll()
 //	})
 //
-//	it('creates PRODUCT_GET_SUCCESS when get product has been done', () => {
+//	it('should dispatch action and do redirection', () => {
 //
-//		const data = [
+//		const data =
 //			{
-//				"id": 1,
+//				"id": '3',
 //				"name": "Rob",
 //				"email": "Rob@test.com"
-//			},
-//			{
-//				"id": 2,
-//				"name": "Sonam",
-//				"email": "Sonam@test.com"
 //			}
-//		]
 //
-//		nock(`http://localhost:3001/`)
-//			.get('/api/employees')
-//			.reply(200, {data})
 //
 //		const expectedActions = [
-//			{type: LOAD_ALL_EMPLOYEES + START},
-//			{type: LOAD_ALL_EMPLOYEES + SUCCESS, data},
+//			{type: EDIT_EMPLOYEE + START}
 //		]
 //
 //		const store = mockStore([])
 //
-//		return store.dispatch(loadAllEmployees())
-//			.then(() => expect(store.getActions()).to.deep.equal(expectedActions))
+//		return store.dispatch(editAndRedirectEmployee(data))
+//			.then(() => {
+//				expect(store.getActions()).to.deep.equal(expectedActions)
+//				expect(store).toContainLocation({pathname: '/employees/' + data.id})
+//			})
 //	})
 //})
