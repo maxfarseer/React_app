@@ -12,8 +12,7 @@ class Employee extends Component {
 	}
 
 	static contextTypes = {
-		router: PropTypes.object,
-		style: PropTypes.object
+		router: PropTypes.object
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -25,11 +24,11 @@ class Employee extends Component {
 	}
 
 	render() {
-		if (!this.props.loaded) return null
 		const { employee } = this.state
+		if (!this.props.loaded || !employee ) return null
 		return(
 			<div>
-				<p>{ employee == undefined ? 'не работает' : employee.email}</p>
+				<p>{ employee.email }</p>
 			</div>
 		)
 	}

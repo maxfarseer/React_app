@@ -5,11 +5,25 @@ import EmployeeForm from '../components/EmployeeForm'
 
 class EditEmployee extends Component {
 
-	render() {
-		if (!this.props.loaded) return null
-		const employee = this.props.employees.filter( person => person.id == this.props.id )[0]
-		if(!employee) this.context.router.push('/employees')
+	static contextTypes = {
+		router: PropTypes.object,
+	}
 
+	state = {
+		employee : this.props.employees.filter( person => person.id == this.props.id )[0]
+	}
+
+	componentWillReceiveProps(nextProps){
+		const employee = nextProps.employees.filter( person => person.id == nextProps.id )[0]
+		if(!employee) this.context.router.push('/employees')
+		this.setState({
+			employee
+		})
+	}
+
+	render() {
+		const { employee } = this.state
+		if (!this.props.loaded || !employee ) return null
 		return(
 			<EmployeeForm saveForm = {this.props.editAction} employee = {employee} />
 		)
