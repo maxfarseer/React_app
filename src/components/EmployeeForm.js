@@ -17,6 +17,7 @@ class EmployeeForm extends Component {
 			id: nextProps.employee ? nextProps.employee.id : undefined,
 		})
 	}
+
 	static propTypes = {
 		employee: PropTypes.object
 	};

@@ -2,9 +2,11 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 class Employee extends Component {
+
 	state = {
-		email: null
+		employee : this.props.employees.filter( person => person.id == this.props.id )[0]
 	}
+
 	static propTypes = {
 		id: PropTypes.string.isRequired
 	}
@@ -14,13 +16,20 @@ class Employee extends Component {
 		style: PropTypes.object
 	}
 
+	componentWillReceiveProps(nextProps){
+		const employee = nextProps.employees.filter( person => person.id == nextProps.id )[0]
+		if(!employee) this.context.router.push('/employees')
+		this.setState({
+			employee
+		})
+	}
+
 	render() {
 		if (!this.props.loaded) return null
-		const employee = this.props.employees.filter( person => person.id == this.props.id )[0]
-		if(!employee) this.context.router.push('/employees')
+		const { employee } = this.state
 		return(
 			<div>
-				<p>{employee.email}</p>
+				<p>{ employee == undefined ? 'не работает' : employee.email}</p>
 			</div>
 		)
 	}
