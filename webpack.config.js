@@ -4,6 +4,7 @@ var webpack = require('webpack')
 module.exports = {
     devtool: 'eval',
     entry: [
+        'react-hot-loader/patch',
         './src/app.js'
     ],
     output: {

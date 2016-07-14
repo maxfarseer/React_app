@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
+//import { Link } from 'react-router'
 
 
 class EmployeesList extends Component {
@@ -21,8 +21,10 @@ class EmployeesList extends Component {
 			(employee) =>
 				<li key = {employee.id}>
 					<p>{employee.name} </p>
+					{/*
 					<Link to={`/employees/${employee.id}`}>show</Link>{' '}
 					<Link to={`/employees/${employee.id}/edit`}>edit</Link>{' '}
+					*/}
 					<a href = "#" onClick = {this.deleteEmployee(employee.id)}>delete</a>
 				</li>
 		)

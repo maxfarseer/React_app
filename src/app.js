@@ -5,12 +5,15 @@ import { routes } from './routes'
 import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router'
 import history from './history'
+import { AppContainer } from 'react-hot-loader'
 
 window.store = store
 
 render(
 	<Provider store={store}>
-		<Router history={history} routes={routes} />
+		<AppContainer>
+			<Router history={history} routes={routes} />
+		</AppContainer>
 	</Provider>,
 	document.getElementById('container')
 )
