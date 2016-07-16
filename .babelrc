@@ -1,8 +1,13 @@
 {
-  "presets": ["es2015", "stage-0", "react", "react-hmre"],
+
   "env": {
     "test": {
-      "plugins": []
-    }
+      "plugins": [],
+      "presets": ["es2015", "stage-0", "react"],
+    },
+    "development": {
+      "plugins": [],
+      "presets": ["es2015", "stage-0", "react", "react-hmre"],
+    },
   }
 }

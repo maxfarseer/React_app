@@ -1,4 +1,4 @@
-import EmployeeList from './EmployeesList'
+import EmployeesList from './EmployeesList'
 import { shallow } from 'enzyme'
 
 describe('EmployeesList', () => {
@@ -14,7 +14,7 @@ describe('EmployeesList', () => {
 	})
 
 
-	it('...', () => {
+	it('Shoud render one <li> item', () => {
 
 		const element = shallow(<EmployeesList { ...props } />)
 		expect(element.find('li')).to.have.length(1)
