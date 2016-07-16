@@ -11,11 +11,16 @@ const middlewares = [ multi, thunk, routerMiddleware(historyType)]
 const mockStore = configureMockStore(middlewares)
 
 import { loadAllEmployees, deleteEmployee, addNewEmployee, editEmployee, editAndRedirectEmployee } from '../../src/AC/employees'
-import { LOAD_ALL_EMPLOYEES, DELETE_EMPLOYEE, ADD_NEW_EMPLOYEE, EDIT_EMPLOYEE, START  } from '../../src/constants'
+import { LOAD_ALL_EMPLOYEES, DELETE_EMPLOYEE, ADD_NEW_EMPLOYEE, EDIT_EMPLOYEE, START, SUCCESS  } from '../../src/constants'
 
 
 
 describe('sync actions', () => {
+
+	afterEach(() => {
+		nock.cleanAll()
+	})
+
 	const id = 2
 	const data = {
 		name: 'fakeName',
@@ -69,31 +74,37 @@ describe('sync actions', () => {
 
 })
 
-//describe('async actions', () => {
-//	afterEach(() => {
-//		nock.cleanAll()
-//	})
-//
-//	it('should dispatch action and do redirection', () => {
-//
-//		const data =
-//			{
-//				"id": '3',
-//				"name": "Rob",
-//				"email": "Rob@test.com"
-//			}
-//
-//
-//		const expectedActions = [
-//			{type: EDIT_EMPLOYEE + START}
-//		]
-//
-//		const store = mockStore([])
-//
-//		return store.dispatch(editAndRedirectEmployee(data))
-//			.then(() => {
-//				expect(store.getActions()).to.deep.equal(expectedActions)
-//				expect(store).toContainLocation({pathname: '/employees/' + data.id})
-//			})
-//	})
-//})
+describe('async actions', () => {
+	afterEach(() => {
+		nock.cleanAll()
+	})
+
+	it('should dispatch action and do redirection', () => {
+
+		const data =
+			{
+				"id": '3',
+				"name": "Rob",
+				"email": "Rob@test.com"
+			}
+
+		nock('http://localhost:8080')
+			.put('/api/employees/' + data.id, data)
+			.reply(200, [data] )
+
+		const expectedActions = [
+			{type: EDIT_EMPLOYEE + START},
+			{type: EDIT_EMPLOYEE + SUCCESS, response: [data]}
+
+		]
+
+		const store = mockStore([])
+
+		return store.dispatch(editAndRedirectEmployee(data))
+			.then(() => {
+				console.log(store.getActions())
+				expect(store.getActions()).to.deep.equal(expectedActions)
+				//expect(store).toContainLocation({pathname: '/employees/' + data.id})
+			})
+	})
+})

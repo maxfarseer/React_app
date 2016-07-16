@@ -1,6 +1,7 @@
 import { LOAD_ALL_EMPLOYEES, START, SUCCESS, FAIL, DELETE_EMPLOYEE, ADD_NEW_EMPLOYEE, EDIT_EMPLOYEE } from '../constants'
 import * as api from './api'
 import { push } from 'react-router-redux'
+const request = require('superagent-bluebird-promise')
 
 export function loadAllEmployees() {
 	return {
@@ -39,7 +40,23 @@ export function editEmployee(data) {
 
 export function editAndRedirectEmployee(data) {
 	return dispatch => {
-		dispatch(editEmployee(data));
-		dispatch(push("/employees/" + data.id));
+		dispatch({ type: EDIT_EMPLOYEE + START })
+		return request
+			.put('http://localhost:8080/api/employees/' + data.id)
+			.send(data)
+			.then(res => {
+				if (!res.ok) {
+					dispatch({ type: EDIT_EMPLOYEE + FAIL })
+				} else {
+					dispatch({
+						type: EDIT_EMPLOYEE + SUCCESS,
+						response: res.body
+					})
+					//localStorage.setItem('cks_token', res.body.data)
+					dispatch(push("/employees/" + data.id))
+				}
+			}, err => {
+				dispatch({ type: EDIT_EMPLOYEE + FAIL })
+			})
 	}
 }

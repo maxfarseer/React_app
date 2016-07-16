@@ -1,6 +1,11 @@
 'use strict'
 
 const router = require('express').Router();
+//if(process.env.NODE_ENV === test) {
+//    const mocks = require('../test/mock')
+//} else {
+//    const mocks = require('./mock');
+//}
 const mocks = require('./mock');
 const assign = require('object-assign');
 const uuid = require('node-uuid');

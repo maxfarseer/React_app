@@ -23,7 +23,6 @@ export default (employees = defaultState, action) => {
 
 		case EDIT_EMPLOYEE + SUCCESS:
 		{
-			console.log(response)
 			return {entities: response, loaded: true, loading: false}
 		}
 	}
