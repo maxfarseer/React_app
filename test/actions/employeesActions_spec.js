@@ -2,12 +2,8 @@ import {expect} from 'chai'
 import nock from 'nock'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import { routerMiddleware } from 'react-router-redux'
-import historyType from '../../src/history'
-import multi from 'redux-multi'
 
-
-const middlewares = [ multi, thunk, routerMiddleware(historyType)]
+const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
 
 import { loadAllEmployees, deleteEmployee, addNewEmployee, editEmployee, editAndRedirectEmployee } from '../../src/AC/employees'
@@ -88,23 +84,26 @@ describe('async actions', () => {
 				"email": "Rob@test.com"
 			}
 
+		const routerPayload = {
+			method: 'push',
+			args: ['/employees/'+data.id]
+		}
+
 		nock('http://localhost:8080')
 			.put('/api/employees/' + data.id, data)
 			.reply(200, [data] )
 
 		const expectedActions = [
 			{type: EDIT_EMPLOYEE + START},
-			{type: EDIT_EMPLOYEE + SUCCESS, response: [data]}
-
+			{type: EDIT_EMPLOYEE + SUCCESS, response: [data]},
+			{type: '@@router/CALL_HISTORY_METHOD', payload: routerPayload}
 		]
 
 		const store = mockStore([])
 
 		return store.dispatch(editAndRedirectEmployee(data))
 			.then(() => {
-				console.log(store.getActions())
 				expect(store.getActions()).to.deep.equal(expectedActions)
-				//expect(store).toContainLocation({pathname: '/employees/' + data.id})
 			})
 	})
 })
