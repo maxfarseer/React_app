@@ -52,7 +52,6 @@ export function editAndRedirectEmployee(data) {
 						type: EDIT_EMPLOYEE + SUCCESS,
 						response: res.body
 					})
-					//localStorage.setItem('cks_token', res.body.data)
 					dispatch(push("/employees/" + data.id))
 				}
 			}, err => {
@@ -60,3 +59,5 @@ export function editAndRedirectEmployee(data) {
 			})
 	}
 }
+
+//localStorage.setItem('cks_token', res.body.data)
